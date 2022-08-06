@@ -12,7 +12,11 @@ default = ["console_error_panic_hook"]
 
 [dependencies]
 wasm-bindgen = "0.2.82"
-lurk = "0.1.1"
+#lurk = "0.1.1"
+lurk = { git = "https://github.com/lurk-lang/lurk-rs", branch = "acs/wasm-support", default-features = false, features = ["wasm"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+blstrs = "0.4.2"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires
@@ -22,7 +26,7 @@ console_error_panic_hook = { version = "0.1.6", optional = true }
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
 # compared to the default allocator's ~10K. It is slower than the default
-# allocator, however.
+# allocator, however. 
 #
 # Unfortunately, `wee_alloc` requires nightly Rust when targeting wasm for now.
 wee_alloc = { version = "0.4.5", optional = true }
@@ -33,3 +37,6 @@ wasm-bindgen-test = "0.3.13"
 [profile.release]
 # Tell `rustc` to optimize for small code size.
 opt-level = "s"
+
+[net]
+git-fetch-with-cli = true
