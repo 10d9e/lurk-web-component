@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Lurk Wasm Example</title>
+  <script type="text/javascript" src="js/highlight-lisp/highlight-lisp.js"></script>
+  <link rel="stylesheet" id="hl-theme" href="js/highlight-lisp/themes/hellfire.css" />
+  <link rel="stylesheet" href="css/lurk.css" />
+
+  <link rel="stylesheet" href="https://blizzhackers.github.io/d2data/css/d2font.css">
+		<style>
+			html, body {
+				font-size: 17px;
+				background-color: black;
+				color: #909090;
+				filter: blur(0.4px);
+			}
+
+			.orange {
+				color: #e99210;
+        font-size: 30px;
+			}
+
+			.text-center {
+				text-align: left;
+			}
+
+			.capital {
+				font-size: 1.4em;
+			}
+		</style>
+
+</head>
+
+<body class="text-center avquest">
+  <script type="module" src="js/index.js"></script>
+
+  <div id="main" style="width: 600px;">
+
+  
+
+  <!-- lurk component start -->
+  <div class="orange">
+    <img style="width: 40px;" src="img/d2-spinner.gif">
+    Lurk: Snarkadric Cube
+    <img style="width: 40px;" src="img/d2-spinner.gif">
+  </div>
+  <div>Can be Inserted into Socketed Dapps</div><br>
+  <div>Unique Socketed Artifact: Insert Snark Runes (Groth, SnarkPack) to increase effectiveness</div><br>
+  <div>Non-Interactive Verification: 17% Mana stolen per hit</div>
+  <div>Invisibility - +200% to Maximum Cloak</div>
+  <div>Coercion-Resistance: +85% Resist to Centralized Entity Attacks</div>
+  
+  <div class="lurk-code-component">
+    <pre style="background-color: #4c0511;" id="lurkcode" name="lurkcode"></button><code class="avquest">(
+  let (
+    (square (lambda (x) (
+        * x x
+      )
+    ))
+  ) 
+  (square 8)
+)</code>
+<button id="run" class="button"></button></pre>
+
+    <span id="output-container">
+      <pre><code class="output avquest" id="output" name="output">output goes here</code></pre>
+      <img style="width: 70px;" src="img/diablo1-2sk.gif">
+    </span>
+  </div>
+  <!-- lurk component end -->
+
+</div>
+</body>
+
+</html>
