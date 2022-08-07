@@ -70,7 +70,10 @@ cd my-project
 ### 🛠️ Build with `wasm-pack build --release --target web`
 
 CC=clang AR=llvm-ar wasm-pack build --release --target web
-python3 -m http.server
+
+start up and test with any http server, it's static content:
+ie.
+`python3 -m http.server`
 
 ```
 wasm-pack build
