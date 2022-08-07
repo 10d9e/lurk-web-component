@@ -1,4 +1,4 @@
-import init, {execute_lurk} from "../pkg/lurk_web.js";
+import init, {execute_lurk} from "./pkg/lurk_web.js";
 
 init().then(() => {
     HighlightLisp.highlight_auto();
