@@ -18,12 +18,18 @@
   <div class="lurk-code-component">
     <pre id="lurkcode" name="lurkcode"></button><code contenteditable="true" class="lisp">(
   let (
+    ;; square the value of x
     (square (lambda (x) (
         * x x
       )
     ))
+    ;; cube the value of x
+    (cube (lambda (x) (
+        * x x
+      )
+    ))
   ) 
-  (square 8)
+  (* (square 8) (cube 8))
 )</code>
 <button id="run" class="button"></button></pre>
 
