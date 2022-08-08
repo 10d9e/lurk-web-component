@@ -1,3 +1,7 @@
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
 .lurk-code-component {
   position: relative;
 }
