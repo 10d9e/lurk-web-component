@@ -10,10 +10,6 @@
   width: 600px;
 }
 
-.output {
-  color: #c5c8c6;
-}
-
 #output-container {
   display: none;
 }
@@ -29,11 +25,9 @@
   cursor: pointer;
   border-style: solid;
   border-width: 8px 0 8px 15px;
-
   position: absolute;
-  top: 18px;
-  right: 2px;
-
+  top: 7px;
+  right: -6px;
 }
 
 .button:hover {

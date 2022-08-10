@@ -1,8 +1,8 @@
 <div align="center">
 
-  <h1><code>wasm-pack-template</code></h1>
+  <h1><code>lurk-web-component</code></h1>
 
-  <strong>A template for kick starting a Rust and WebAssembly project using <a href="https://github.com/rustwasm/wasm-pack">wasm-pack</a>.</strong>
+  <strong>A WASM web component for displaying/executing Lurk code. Uses <a href="https://github.com/rustwasm/wasm-pack">wasm-pack template</a>.</strong>
 
   <p>
     <a href="https://travis-ci.org/rustwasm/wasm-pack-template"><img src="https://img.shields.io/travis/rustwasm/wasm-pack-template.svg?style=flat-square" alt="Build Status" /></a>
@@ -68,6 +68,12 @@ cd my-project
 ```
 
 ### 🛠️ Build with `wasm-pack build --release --target web`
+
+CC=clang AR=llvm-ar wasm-pack build --release --target web
+
+start up and test with any http server, it's static content:
+ie.
+`python3 -m http.server`
 
 ```
 wasm-pack build
