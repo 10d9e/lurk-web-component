@@ -13,7 +13,7 @@ default = ["console_error_panic_hook"]
 [dependencies]
 wasm-bindgen = "0.2.82"
 #lurk = "0.1.1"
-lurk = { git = "https://github.com/lurk-lang/lurk-rs", branch = "acs/wasm-support", default-features = false, features = ["wasm"] }
+lurk = { git = "https://github.com/lurk-lang/lurk-rs", branch = "rebased-wasm-support", default-features = false, features = ["wasm"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
 blstrs = "0.4.2"

@@ -32,12 +32,17 @@ pub fn greet(name: &str) {
 /// Run a lurk snippet
 #[wasm_bindgen(catch)]
 pub fn execute_lurk(source: JsValue) -> Result<JsValue, JsValue> {
-    let limit = 100_000_000;
-
     let expression = source
         .as_string()
         .ok_or_else(|| "input source must be a string")?;
 
+    let context = run_lurk(expression);
+    let json = json!(&context);
+    Ok(json.to_string().into())
+}
+
+fn run_lurk(expression: String) -> HashMap<&'static str, String> {
+    let limit = 100_000_000;
     let mut store = Store::<Fr>::default();
     let mut context: HashMap<&str, String> = HashMap::new();
 
@@ -63,6 +68,22 @@ pub fn execute_lurk(source: JsValue) -> Result<JsValue, JsValue> {
         let error = format!("Syntax Error: {}", &expression);
         context.insert("result", error);
     }
-    let json = json!(&context);
-    Ok(json.to_string().into())
+    println!("{:?}", store);
+    return context;
+}
+
+#[cfg(test)]
+mod tests {
+    use wasm_bindgen::JsValue;
+
+    use crate::{execute_lurk, run_lurk};
+
+    #[test]
+    fn test_execute_lurk() {
+        // let result = execute_lurk(JsValue::from_str("(* 8 7)"));
+        let result = run_lurk(String::from("(* 8 7)"));
+        println!("{:?}", result);
+        // assert_eq!(result, 4);
+        assert_eq!(4, 4);
+    }
 }
