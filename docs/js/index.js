@@ -1,4 +1,4 @@
-import init, { execute_lurk, init_panic_hook } from "/pkg/lurk_web.js";
+import init, { execute_lurk, init_panic_hook } from "../pkg/lurk_web.js";
 
 var originalContents;
 
