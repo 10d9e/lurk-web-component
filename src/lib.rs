@@ -1,6 +1,4 @@
 mod utils;
-
-
 /// Module for wasm-bindgen specific handling and endpoints.
 use lurk::{
     eval::{empty_sym_env, Evaluator},
@@ -12,6 +10,7 @@ use wasm_bindgen::prelude::*;
 use serde_json::json;
 use blstrs::Scalar as Fr;
 
+use std::panic;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -19,6 +18,7 @@ use blstrs::Scalar as Fr;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+/* 
 #[wasm_bindgen]
 extern {
     pub fn alert(s: &str);
@@ -28,6 +28,15 @@ extern {
 pub fn greet(name: &str) {
     alert(&format!("Hello, {}!", name));
 }
+*/
+
+//#[wasm_bindgen]
+//pub fn initi() { utils::set_panic_hook() }
+
+#[wasm_bindgen]
+pub fn init_panic_hook() {
+    utils::set_panic_hook();
+}
 
 /// Run a lurk snippet
 #[wasm_bindgen(catch)]
@@ -36,9 +45,22 @@ pub fn execute_lurk(source: JsValue) -> Result<JsValue, JsValue> {
         .as_string()
         .ok_or_else(|| "input source must be a string")?;
 
-    let context = run_lurk(expression);
-    let json = json!(&context);
-    Ok(json.to_string().into())
+    let result = panic::catch_unwind(|| {
+        run_lurk(expression)
+    });
+
+    if result.is_err() {
+        let mut context: HashMap<&str, String> = HashMap::new();
+        let s = format!("{:#?}", result.err());
+        context.insert("errors", s );
+        let json = json!(&context);
+        Ok(json.to_string().into())
+    } else {
+        //let context = run_lurk(expression);
+        let context = result.unwrap();
+        let json = json!(&context);
+        Ok(json.to_string().into())
+    }
 }
 
 fn run_lurk(expression: String) -> HashMap<&'static str, String> {

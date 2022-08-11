@@ -1,39 +1,35 @@
-import init, {execute_lurk} from "./pkg/lurk_web.js";
+import init, { execute_lurk, init_panic_hook } from "/pkg/lurk_web.js";
+
+var originalContents;
 
 init().then(() => {
+    init_panic_hook();
     HighlightLisp.highlight_auto();
-
-    // specify a custom class name (instead of "lisp"):
-    //HighlightLisp.highlight_auto({className: 'common-lisp'});
-
-    // highlight *every* code block
-    //HighlightLisp.highlight_auto({className: null});
-
-    // manually highlight a code block
-    //var code = document.getElementById('my-code-element');
-    //HighlightLisp.highlight_element(code);
-
     HighlightLisp.paren_match();
-
-    //var btn = $(".button");
+    originalContents = document.getElementById("lurkcode").textContent;
     var btn = document.getElementById('run');
     btn.onclick = function (e) {
-        console.log("clicked");
-
         var output_container = document.getElementById("output-container");
         output_container.style.display = "block";
-
-        var lurkcode = document.getElementById("lurkcode");
-        
-        console.log(lurkcode.textContent);
-        var out = execute_lurk(lurkcode.textContent);
-        var outObj = JSON.parse(out);
-        console.log(outObj);
+        var lurkcode = document.getElementById("lurkcode");        
         var output = document.getElementById("output");
+        try {
+            var out = execute_lurk(lurkcode.textContent);
+        } catch (error) {
+            output.textContent ="Iterations: 0 \nResult: ERROR!";
+            return false;
+        }
+        var outObj = JSON.parse(out);
         output.textContent = "Iterations: " + outObj.iterations + "\nResult: " + outObj.result;
-
         return false;
     };
-
+    var resetBtn = document.getElementById('reset');
+    resetBtn.onclick = function (e) {
+        document.getElementById("lurkcode").textContent = originalContents;
+        HighlightLisp.highlight_auto();
+        HighlightLisp.paren_match();
+        var output_container = document.getElementById("output-container");
+        output_container.style.display = "none";
+    }
 });
 
