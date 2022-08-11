@@ -53,7 +53,9 @@
   <div>Coercion-Resistance: +85% Resist to Centralized Entity Attacks</div>
   
   <div class="lurk-code-component">
-    <pre style="background-color: #4c0511;" id="lurkcode" name="lurkcode"></button><code contenteditable="true"  class="avquest">(let (
+    <button id="reset" class="button"></button>
+    <button id="run" class="button"></button>
+    <pre style="background-color: #4c0511;" id="lurkcode" name="lurkcode"><code contenteditable="true" class="avquest">(let (
   ;; square the value of x
   (square (lambda (x) (
     * x x)))
@@ -63,9 +65,7 @@
     * x (* x x)))))
 
   ;; product of square and cube
-  (*(square 8)(cube 8)))</code>
-<button id="run" class="button"></button></pre>
-
+  (*(square 8)(cube 8)))</code></pre>
     <span id="output-container">
       <pre><code class="output avquest" id="output" name="output">output goes here</code></pre>
       <img style="width: 70px;" src="img/diablo1-2sk.gif">
