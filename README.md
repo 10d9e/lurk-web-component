@@ -1,6 +1,6 @@
 # Lurk Web Component
 
-![lurk demo](lurk-recording.gif)
+![lurk demo](https://user-images.githubusercontent.com/1556714/184987351-406f12e9-94cf-49d5-b784-80c2edd12210.gif)
 
 ## How to install
 
