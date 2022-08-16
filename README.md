@@ -20,7 +20,12 @@ CC=clang AR=llvm-ar npm start
 
 ```sh
 # Builds the project and places it into the `dist` folder.
-npm run build
+npm run build && cp start-http-server.sh dist
+```
+
+## Play around with it locally
+```
+cd dist && ./start-http-server.sh
 ```
 
 ## How to run unit tests
