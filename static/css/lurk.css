@@ -2,6 +2,10 @@
   outline: 0px solid transparent;
 }
 
+.lurk-code-component .code-section {
+  padding-top: 20px;
+}
+
 .lurk-code-component {
   position: relative;
 }

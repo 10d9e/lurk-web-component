@@ -45,11 +45,8 @@ pub fn main_js() -> Result<(), JsValue> {
         onPanic(msg);
     }));    
 
-    // rayon::ThreadPoolBuilder::new().num_threads(1).build_global().unwrap();
-
     // Your code goes here!
     console::log_1(&JsValue::from_str("Hello world!"));
-
     Ok(())
 }
 

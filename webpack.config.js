@@ -12,7 +12,7 @@ module.exports = {
   },
   output: {
     path: dist,
-    filename: "[name].js"
+    filename: '[name].js',
   },
   plugins: [
     new CopyPlugin({ patterns: ["static"] }),
