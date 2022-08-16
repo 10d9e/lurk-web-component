@@ -1,3 +1,7 @@
+# Lurk Web Component
+
+![lurk demo](lurk-recording.gif)
+
 ## How to install
 
 ```sh
