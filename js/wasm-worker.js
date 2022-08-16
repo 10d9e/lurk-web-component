@@ -20,7 +20,6 @@ async function initHandlers() {
   let [singleThread, multiThread] = await Promise.all([
     (async () => {
       const singleThread = await import('../pkg/index.js');
-      singleThread.Repl
       await singleThread.default();
       return wrapExports(singleThread);
     })(),
