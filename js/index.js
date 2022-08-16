@@ -1,12 +1,80 @@
-import init, { execute_lurk, init_panic_hook } from "../pkg/lurk_web.js";
+
+import * as Comlink from 'comlink';
 
 var originalContents;
 
-init().then(() => {
-    init_panic_hook();
+(async function init() {
+
+    originalContents = document.getElementById("lurkcode").textContent;
+    HighlightLisp.highlight_auto();
+    HighlightLisp.paren_match();
+    
+
+    // Create a separate thread from wasm-worker.js and get a proxy to its handlers.
+    let handlers = await Comlink.wrap(
+      new Worker(new URL('./wasm-worker.js', import.meta.url), {
+        type: 'module'
+      })
+    ).handlers;
+
+    // let handler = handlers['singleThread'];
+    let handler = handlers['multiThread'];
+    // If handler doesn't exist, it's not supported.
+    if (!handler) return;
+
+    var btn = document.getElementById('run');
+    btn.onclick = async function (e) {
+        var output_container = document.getElementById("output-container");
+        output_container.style.display = "block";
+        var lurkcode = document.getElementById("lurkcode");        
+        var output = document.getElementById("output");
+        try {
+            output.textContent ="processing... ";
+            let textContent = lurkcode.textContent;
+            let out = await handler({textContent});
+            //var out = module.execute_lurk(lurkcode.textContent);
+            var outObj = JSON.parse(out);
+            output.textContent = "Iterations: " + outObj.iterations + "\nResult: " + outObj.result;
+        } catch (error) {
+            console.log(error);
+            output.textContent ="Iterations: 0 \nResult: ERROR: " + error;
+            return false;
+        }
+        
+        return false;
+    };
+    var resetBtn = document.getElementById('reset');
+    resetBtn.onclick = function (e) {
+        document.getElementById("lurkcode").textContent = originalContents;
+        HighlightLisp.highlight_auto();
+        HighlightLisp.paren_match();
+        var output_container = document.getElementById("output-container");
+        output_container.style.display = "none";
+    }
+
+    document.addEventListener("update-progress", (event) => {
+        console.log("WE GOT ONE!!!!!!!!!");
+        var output = document.getElementById("output");
+        output.textContent = event.detail.message();
+    });
+  
+    /*
+    setupBtn('singleThread');
+    if (await handlers.supportsThreads) {
+      setupBtn('multiThread');
+    }
+    */
+})();
+
+/*
+import("../pkg/index.js").then(async module => {
+    await init();
+    await module.initThreadPool(navigator.hardwareConcurrency);
+    //init_panic_hook();
     HighlightLisp.highlight_auto();
     HighlightLisp.paren_match();
     originalContents = document.getElementById("lurkcode").textContent;
+
     var btn = document.getElementById('run');
     btn.onclick = function (e) {
         var output_container = document.getElementById("output-container");
@@ -14,9 +82,10 @@ init().then(() => {
         var lurkcode = document.getElementById("lurkcode");        
         var output = document.getElementById("output");
         try {
-            var out = execute_lurk(lurkcode.textContent);
+            var out = module.execute_lurk(lurkcode.textContent);
         } catch (error) {
-            output.textContent ="Iterations: 0 \nResult: ERROR!";
+            console.log(error);
+            output.textContent ="Iterations: 0 \nResult: ERROR: " + error;
             return false;
         }
         var outObj = JSON.parse(out);
@@ -32,4 +101,4 @@ init().then(() => {
         output_container.style.display = "none";
     }
 });
-
+*/
