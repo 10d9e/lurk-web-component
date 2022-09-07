@@ -18,6 +18,10 @@
   display: none;
 }
 
+#lurk-code-component-controls {
+  display: none;
+}
+
 #run {
   background-repeat: no-repeat;
   background-color: rgb(104, 104, 104);
