@@ -43,10 +43,7 @@ pub fn main_js() -> Result<(), JsValue> {
         let msg = format!("{}", panic_info);
         console::log_1(&JsValue::from_str(&msg));
         onPanic(msg);
-    }));    
-
-    // Your code goes here!
-    console::log_1(&JsValue::from_str("Hello world!"));
+    }));
     Ok(())
 }
 
